@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Smartserv Assignment</title>
+	</head>
+	<style>
+		table,
+		th,
+		td {
+			border: 1px solid black;
+			border-collapse: collapse;
+			padding: 5px;
+		}
+	</style>
+	<body>
+		<h2>Product Info</h2>
+
+		<table>
+			<tr>
+				<th>S.No.</th>
+				<th>Title</th>
+				<th>SubCategory</th>
+				<th>Price</th>
+				<th>Popularity</th>
+			</tr>
+			<tbody id="myTable"></tbody>
+		</table>
+
+		<script>
+			const url = "https://s3.amazonaws.com/open-to-cors/assignment.json";
+			fetch(url).then(function (response) {
+				if (response.status !== 200) {
+					console.log(
+						"Looks like there was a problem in loading. Status Code: " +
+							response.status
+					);
+					return;
+				}
+				response.json().then((data) => {
+					var table = document.getElementById("myTable");
+					var row;
+					for (var i = 0; i < data.length; i++) {
+						var row = document.createElement("tr");
+						row.sno = i + 1;
+						row.title = data[i].title;
+						row.subcategory = data[i].subcategory;
+						row.price = data[i].price;
+						row.popularity = data[i].popularity;
+						table.add(row);
+					}
+				});
+			});
+		</script>
+	</body>
+</html>
